@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Simple House Blueprint</title>
+
+<style>
+body{
+    font-family: Arial, sans-serif;
+    background:#f2f5f8;
+    margin:20px;
+}
+
+.container{
+    max-width:900px;
+    margin:auto;
+}
+
+.controls{
+    background:white;
+    padding:15px;
+    border-radius:8px;
+    margin-bottom:20px;
+    box-shadow:0 2px 6px rgba(0,0,0,.2);
+}
+
+label{
+    display:block;
+    margin-top:10px;
+}
+
+input{
+    width:120px;
+    padding:6px;
+}
+
+button{
+    margin-top:15px;
+    padding:10px 18px;
+    background:#1565C0;
+    color:white;
+    border:none;
+    border-radius:5px;
+    cursor:pointer;
+}
+
+canvas{
+    background:white;
+    border:2px solid #333;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<div class="controls">
+
+<h2>House Blueprint Generator</h2>
+
+<label>House Width (ft)</label>
+<input type="number" id="width" value="40">
+
+<label>House Height (ft)</label>
+<input type="number" id="height" value="30">
+
+<label>Bedrooms</label>
+<input type="number" id="bedrooms" value="2">
+
+<button onclick="drawBlueprint()">Generate Blueprint</button>
+
+</div>
+
+<canvas id="plan" width="800" height="600"></canvas>
+
+</div>
+
+<script>
+
+function drawBlueprint(){
+
+const canvas=document.getElementById("plan");
+const ctx=canvas.getContext("2d");
+
+ctx.clearRect(0,0,canvas.width,canvas.height);
+
+const w=parseInt(document.getElementById("width").value);
+const h=parseInt(document.getElementById("height").value);
+const beds=parseInt(document.getElementById("bedrooms").value);
+
+const scale=10;
+
+const x=80;
+const y=80;
+
+const houseW=w*scale;
+const houseH=h*scale;
+
+ctx.lineWidth=3;
+ctx.strokeStyle="blue";
+
+ctx.strokeRect(x,y,houseW,houseH);
+
+// Living Room
+ctx.beginPath();
+ctx.moveTo(x,y+houseH/2);
+ctx.lineTo(x+houseW,y+houseH/2);
+ctx.stroke();
+
+ctx.font="16px Arial";
+ctx.fillStyle="black";
+ctx.fillText("Living Room",x+20,y+houseH/4);
+
+// Bedrooms
+let roomWidth=houseW/beds;
+
+for(let i=1;i<beds;i++){
+    ctx.beginPath();
+    ctx.moveTo(x+i*roomWidth,y+houseH/2);
+    ctx.lineTo(x+i*roomWidth,y+houseH);
+    ctx.stroke();
+}
+
+for(let i=0;i<beds;i++){
+    ctx.fillText(
+        "Bedroom "+(i+1),
+        x+roomWidth*i+15,
+        y+houseH*0.75
+    );
+}
+
+// Main Door
+ctx.strokeStyle="red";
+ctx.lineWidth=4;
+ctx.beginPath();
+ctx.moveTo(x+houseW/2-20,y+houseH);
+ctx.lineTo(x+houseW/2+20,y+houseH);
+ctx.stroke();
+
+ctx.fillStyle="green";
+ctx.fillText("Main Door",x+houseW/2-35,y+houseH+25);
+
+}
+
+drawBlueprint();
+
+</script>
+
+</body>
+</html>
