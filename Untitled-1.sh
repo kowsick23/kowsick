@@ -15,7 +15,7 @@ cd my-project || exit
 git init
 
 # Create a README file
-echo "# My Project" > README.md 
+echo "# My Project" > README.md
 
 # Add all files to the staging area
 git add .
