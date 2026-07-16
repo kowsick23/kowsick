@@ -1,0 +1,35 @@
+#!/bin/bash
+
+# Configure Git (run once)
+git config --global user.name "KOWSICK"
+git config --global user.email "kowsickkowsick37@gmail.com"
+
+# Verify Git configuration
+git config --list
+
+# Create a new project folder
+mkdir kowsick/python
+cd kowsick/python || exit
+
+# Initialize Git repository
+git init
+
+# Create a README file
+echo "# kowsick/python" > README.md
+
+# Add all files to the staging area
+git add .
+
+# Commit the files
+git commit -m "Initial commit"
+
+# Rename the default branch to main
+git branch -M main
+
+# Add the GitHub remote repository
+git remote add origin https://github.com/kowsick/kowsick.python.git
+
+# Push the project to GitHub
+git push -u origin main
+
+echo "Project has been successfully pushed to GitHub!"
