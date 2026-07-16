@@ -14,7 +14,7 @@ cd Mission DHONI || exit
 # Initialize Git repository
 git init
 # Create a README file
-echo "Mission DHONI" > README.md 
+echo "Mission DHONI" > README.md
 
 # Add all files to the staging area
 git add .
